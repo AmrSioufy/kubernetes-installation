@@ -10,7 +10,5 @@ galaxy_info:
 
   galaxy_tags: []
 
-dependencies: []
   
-ansible collection install community.general  
   
