@@ -71,4 +71,3 @@
   debug:
     msg: "{{ join_command.stdout_lines }}"
   when: inventory_hostname == 'mymaster' in groups.k8snodes
-
