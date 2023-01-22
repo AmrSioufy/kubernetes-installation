@@ -2,16 +2,14 @@ galaxy_info:
   author: Amr Sioufy
   description: Initiate kubernetes cluster 
   company: Linux-Plus Infromation Systems
+  issue_tracker_url: https://github.com/AmrSioufy/Kubernetes-init/issues
   license: "license (BSD, MIT)"
-  min_ansible_version: 2.4
+  min_ansible_version: 2.9
   platforms:
-    - name: Red Hat Eneterprise Linux
+    - name: EL
       versions:
-        - 8.4
+        - 8
         - 9
-    - name: CentOS
-      versions:
-        - Stream
   galaxy_tags:
     - system
     - containers
