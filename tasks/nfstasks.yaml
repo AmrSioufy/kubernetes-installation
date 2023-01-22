@@ -1,0 +1,16 @@
+- name: Start and Enable nfs server on nfs managed host
+  service:
+    name: nfs-server
+    state: started
+    enabled: yes
+
+- name: Edit /etc/exports entry
+  lineinfile:
+    state: present
+    path: /etc/exports
+    line: '{{ nfs_share }} *(rw,no_subtree_check,no_root_squash,insecure)'
+
+- name: export command
+  shell: exportfs -arv
+  ignore_errors: yes
+

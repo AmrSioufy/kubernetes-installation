@@ -1,0 +1,22 @@
+- name: Initializing Kubernetes Cluster from Master Node
+  shell: kubeadm init --control-plane-endpoint="192.168.9.40:6443" --upload-certs --apiserver-advertise-address=192.168.9.50 --pod-network-cidr=10.244.0.0/16
+  ignore_errors: yes
+
+- name: Exporting KUBECONFIG
+  lineinfile:
+    line: export KUBECONFIG=/etc/kubernetes/admin.conf
+    state: present
+    insertafter: 'export PATH'
+    path: /root/.bashrc
+
+- name: Source .bashrc
+  shell: source /root/.bashrc
+
+- name: Check master node
+  shell: kubectl get nodes
+  register: result
+
+- name: kubectl get nodes
+  debug:
+    var: result.stdout_lines
+

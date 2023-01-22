@@ -1,0 +1,17 @@
+[k8snodes]
+
+mymaster
+myworker
+
+[masternodes]
+
+mymaster
+
+[workernodes]
+
+myworker
+
+[infrastructure]
+
+mynfs
+myhaproxy

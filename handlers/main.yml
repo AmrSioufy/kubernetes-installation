@@ -1,0 +1,7 @@
+- name: Do the swapoff -a command
+  shell: swapoff -a
+
+- name: restart nfs
+  service:
+    name: nfs-server
+    state: restarted

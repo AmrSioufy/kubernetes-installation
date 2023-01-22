@@ -1,0 +1,78 @@
+- import_tasks: allhoststasks.yaml
+
+- name: Create a Kubernetes repo file
+  ansible.builtin.file:
+    path: /etc/yum.repos.d/kubernetes.repo
+    mode: '0644'
+    state: touch
+  when: inventory_hostname in groups['k8snodes']
+
+
+- name: Adding Kubernetes repo content
+  ansible.builtin.blockinfile:
+    path: /etc/yum.repos.d/kubernetes.repo
+    block: |
+           [kubernetes]
+           name=Kubernetes
+           baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+           enabled=1
+           gpgcheck=1
+           gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg  https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+           exclude=kubelet kubeadm kubectl
+  when: inventory_hostname in groups['k8snodes']
+
+- import_tasks: haproxytasks.yaml
+  when: inventory_hostname == 'myhaproxy' in groups['infrastructure']
+
+- name: Install nfs packages for all servers
+  yum:
+    name: nfs-utils
+
+- name: Create a Directory on all hosts for nfs data sharing
+  file:
+    state: directory
+    path: "{{ nfs_share }}"
+
+- import_tasks: nfstasks.yaml
+  when: inventory_hostname == 'mynfs' in groups['infrastructure']
+
+- name: Add nfs mount in /etc/fstab
+  lineinfile:
+    state: present
+    path: /etc/exports
+    line: '192.168.9.60:"{{ nfs_share }}" "{{ nfs_share }}" nfs defaults 0 0'
+
+- name: Mount nfs share
+  ansible.posix.mount:
+    fstype: nfs
+    src: '192.168.9.60:{{ nfs_share }}'
+    path: "{{ nfs_share }}"
+    state: mounted
+    opts: rw,sync 
+  when: inventory_hostname != 'mynfs' in groups['all']
+
+
+- import_tasks: k8snodestasks.yaml
+  when: inventory_hostname in groups['k8snodes']
+
+- name: Restart HAProxy
+  service:
+    name: haproxy
+    state: restarted
+  when: inventory_hostname == 'myhaproxy' in groups['infrastructure']
+
+- import_tasks: roles/prerequisite/tasks/mastertasks.yaml
+  when: inventory_hostname == 'mymaster' in groups['k8snodes']
+
+- name: Generate Join Token
+  shell: kubeadm token create --print-join-command
+  register: join_command
+  when: inventory_hostname == 'mymaster' in groups.k8snodes
+
+- name: debug
+  debug:
+    msg: "{{ hostvars.join_command.stdout }}"
+
+- name: Join workers
+  shell: "{{ join_command.stdout }}"
+  when: inventory_hostname == 'myworker' in groups.k8snodes

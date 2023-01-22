@@ -1,0 +1,69 @@
+- name: Add devel Repos for CRI-O
+  ansible.builtin.get_url:
+    url: "{{ crio_repo1 }}"
+    dest: "{{ crio_repo1_path }}"
+    mode: '0644'
+  when: inventory_hostname in groups['k8snodes']
+
+- name: Add devel Repos for CRI-O
+  ansible.builtin.get_url:
+    url: "{{ crio_repo2 }}"
+    dest: "{{ crio_repo2_path }}"
+    mode: '0644'
+  when: inventory_hostname in groups['k8snodes']
+
+- name: Install CRI-O
+  yum:
+    name: cri-o
+  when: inventory_hostname in groups['k8snodes']
+
+- name: Start and Enable CRI-O
+  service:
+    name: crio
+    state: started
+    enabled: yes
+  when: inventory_hostname in groups['k8snodes']
+
+- name: Install kubectl kubeadm kubelet
+  yum:
+    name:
+      - kubelet-1.23.0
+      - kubectl-1.23.0
+      - kubeadm-1.23.0
+    disable_excludes: kubernetes
+- name: Enable kubelet
+  service:
+    name: kubelet
+    enabled: yes
+  when: inventory_hostname in groups['k8snodes']
+
+- name: Modify Network Configurations for kubernetes
+  copy:
+    src: ~/k8sproject/roles/prerequisite/files/modules-k8s.conf
+    dest: /etc/modules-load.d/k8s.conf
+  when: inventory_hostname in groups['k8snodes']
+
+- name: Modify Network Configurations for kubernetes
+  copy:
+    src: ~/k8sproject/roles/prerequisite/files/sysctl-k8s.conf
+    dest: /etc/sysctl.d/k8s.conf
+  when: inventory_hostname in groups['k8snodes']
+
+- name: Apply modprobe config
+  shell: modprobe overlay modprobe br_netfilter
+  when: inventory_hostname in groups['k8snodes']
+
+
+- shell: modprobe br_netfilter
+  when: inventory_hostname in groups['k8snodes']
+
+- name: Add some iptables conf in /etc/sysctl.conf
+  lineinfile:
+    line: 'net.bridge.bridge-nf-call-iptables = 1'
+    path: /etc/sysctl.conf
+    state: present
+  when: inventory_hostname in groups['k8snodes']
+
+- name: sysctl reload
+  shell: sysctl --system
+

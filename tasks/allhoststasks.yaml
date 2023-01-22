@@ -1,0 +1,66 @@
+#Adding /etc/hosts file to all hosts
+- name: Sending /etc/hosts Jinja2 template
+  ansible.builtin.template:
+    src: templates/staging_hosts.j2
+    dest: /etc/hosts
+
+#This task is for mounting yum localrepo on managed hosts
+- name: Create a mountpoint directory
+  file:
+    state: directory
+    path: "{{ mount_point }}"
+
+#Puting fstab entry in /etc/fstab
+- name: Mounting local repo data in /etc/fstab
+  ansible.posix.mount:
+    src: /dev/sr0
+    path: "{{ mount_point }}"
+    state: mounted
+    fstype: iso9660
+
+#Create rhel Repository
+- name: Create a rhel.repo file
+  ansible.builtin.file:
+    path: /etc/yum.repos.d/rhel.repo
+    mode: '0644'
+    state: touch
+
+- name: Adding content to rhel.repo
+  ansible.builtin.blockinfile:
+    path: /etc/yum.repos.d/rhel.repo
+    block: |
+           [InstallMedia-BaseOS]
+           name=Red Hat Enterprise Linux 9 - BaseOS
+           metadata_expire=-1
+           gpgcheck=1
+           enabled=1
+           baseurl=file:///mnt/localrepo/BaseOS/
+           gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+           [InstallMedia-AppStream]
+           name=Red Hat Enterprise Linux 9 - AppStream
+           metadata_expire=-1
+           gpgcheck=1
+           enabled=1
+           baseurl=file:///mnt/localrepo/AppStream/
+           gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+- name: Put SELinux in Permissive mode
+  ansible.posix.selinux:
+    policy: targeted
+    state: permissive
+
+- name: TurnOff Firewalld
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: Disable swap
+  ansible.builtin.lineinfile:
+    path: /etc/fstab
+    state: absent
+    regexp: 'swap'
+
+- shell: swapoff -a
+

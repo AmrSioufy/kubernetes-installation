@@ -1,0 +1,15 @@
+- name: Install HAProxy
+  yum:
+    name: haproxy
+
+- name: Start and Enable HAProxy
+  service:
+    name: haproxy
+    state: started
+    enabled: yes
+
+- name: Send haproxy Jinja2 template
+  ansible.builtin.template:
+    src: templates/haproxy.j2
+    dest: /etc/haproxy/haproxy.cfg
+

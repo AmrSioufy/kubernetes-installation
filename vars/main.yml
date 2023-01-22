@@ -1,0 +1,9 @@
+
+mount_point: /mnt/localrepo
+crio_repo1: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_8/devel:kubic:libcontainers:stable.repo
+crio_repo2: https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:1.23/CentOS_8/devel:kubic:libcontainers:stable:cri-o:1.23.repo
+crio_repo1_path: /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo
+crio_repo2_path: /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo
+nfs_share: /var/nfs-share
+
+
