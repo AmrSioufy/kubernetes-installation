@@ -3,7 +3,7 @@ galaxy_info:
   description: 
   company: Linux-Plus Infromation Systems
 
-  issue_tracker_url: http://example.com/issue/tracker
+  issue_tracker_url: https://github.com/AmrSioufy/Kubernetes-init
 
   # Choose a valid license ID from https://spdx.org - some suggested licenses:
   # - BSD-3-Clause (default)
