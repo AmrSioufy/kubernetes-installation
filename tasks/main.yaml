@@ -61,7 +61,7 @@
     state: restarted
   when: inventory_hostname == 'myhaproxy' in groups['infrastructure']
 
-- import_tasks: roles/prerequisite/tasks/mastertasks.yaml
+- import_tasks: roles/Kubernetes-init/tasks/mastertasks.yaml
   when: inventory_hostname == 'mymaster' in groups['k8snodes']
 
 - name: Generate Join Token

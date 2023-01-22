@@ -39,13 +39,13 @@
 
 - name: Modify Network Configurations for kubernetes
   copy:
-    src: ~/k8sproject/roles/prerequisite/files/modules-k8s.conf
+    src: roles/Kubernetes-init/files/modules-k8s.conf
     dest: /etc/modules-load.d/k8s.conf
   when: inventory_hostname in groups['k8snodes']
 
 - name: Modify Network Configurations for kubernetes
   copy:
-    src: ~/k8sproject/roles/prerequisite/files/sysctl-k8s.conf
+    src: roles/Kubernetes-init/files/sysctl-k8s.conf
     dest: /etc/sysctl.d/k8s.conf
   when: inventory_hostname in groups['k8snodes']
 
