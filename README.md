@@ -131,7 +131,7 @@ community.general collection
 
 Install it using:
 
-ansible collection install community.general
+ansible-galaxy collection install community.general
 
 Example Playbook
 ----------------
