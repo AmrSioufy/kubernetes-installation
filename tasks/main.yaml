@@ -67,10 +67,8 @@
   register: join_command
   when: inventory_hostname == 'mymaster' in groups.k8snodes
 
-- name: debug
+- name: Join command
   debug:
-    msg: "{{ hostvars.join_command.stdout }}"
+    msg: "{{ join_command.stdout_lines }}"
+  when: inventory_hostname == 'mymaster' in groups.k8snodes
 
-- name: Join workers
-  shell: "{{ join_command.stdout }}"
-  when: inventory_hostname == 'myworker' in groups.k8snodes
