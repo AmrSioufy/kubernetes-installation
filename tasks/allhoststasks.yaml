@@ -63,4 +63,3 @@
     regexp: 'swap'
 
 - shell: swapoff -a
-

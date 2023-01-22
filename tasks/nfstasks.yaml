@@ -13,4 +13,3 @@
 - name: export command
   shell: exportfs -arv
   ignore_errors: yes
-

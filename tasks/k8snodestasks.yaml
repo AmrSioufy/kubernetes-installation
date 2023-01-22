@@ -66,4 +66,3 @@
 
 - name: sysctl reload
   shell: sysctl --system
-
