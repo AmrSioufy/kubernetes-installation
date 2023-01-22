@@ -1,7 +1,4 @@
-Thankyou for downloading the Role :)
-
 The design of this role may not be following the best practice standards for a role so excuse my design :)
-
 
 Role Name and Description 
 =========================
@@ -109,8 +106,6 @@ Other variables are defined in the vars/main.yaml
 {{ nfs_share }} = Path of nfs exported directory and nfs mount point for other servers
 
 
-
-
 Templates
 ---------
 
@@ -135,24 +130,24 @@ ansible-galaxy collection install community.general
 
 Example Playbook
 ----------------
-#This is the main Project Playbook
-
 - name: Project Play
   hosts:
     - k8snodes
     - infrastructure
 
   roles:
-    - prerequisite
+    - Kubernetes-init
 
   pre_tasks:
     - name: Ping all hosts now
       ping:
 
+
   post_tasks:
       - name: Cluster Status
         debug:
           msg: "Cluster Implementation is Done!"
+        when: inventory_hostname == 'mymaster' in groups.k8snodes
 
 
 - It is adviced to use this playbook to run your role independantly.
@@ -171,3 +166,4 @@ Author Information
 Written By:
 
 Amr Sioufy 
+Systems Engineer @ Linux-Plus Information Systems
