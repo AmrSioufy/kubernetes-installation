@@ -173,6 +173,7 @@ Role Tasks
 
 Tasks files used are as follow:
 -->
+
 ``` allhoststasks.yaml  backup_main.yaml  haproxytasks.yaml  k8snodestasks.yaml  main.yaml  mastertasks.yaml  nfstasks.yaml  workertasks.yaml ```
 
 Author Information
