@@ -48,6 +48,7 @@ inventories/group_vars
 -------------------------------------
 
 Directory Hierarchy:
+
 ####################
 
 ```
@@ -68,6 +69,7 @@ inventories/
 -------------------------------------
 
 hosts:
+
 #######
 
 You can add more hosts to the below inventory file as it suits your needs.
