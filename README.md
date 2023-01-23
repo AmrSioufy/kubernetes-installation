@@ -106,14 +106,14 @@ host_vars/mymaster.yaml
 -------------------------------------
 Other variables are defined in the vars/main.yaml
 
-
+```
 {{ mount_point }} = Mount point of the local repository 
 {{ crio_repo1 }} Source path for CRI-O Repo
 {{ crio_repo2 }} = Source path for CRI-O Repo
 {{ crio_repo1_path }} =  CRI-O Local Repo path
 {{ crio_repo2_path }} = CRI-O Local Repo path
 {{ nfs_share }} = Path of nfs exported directory and nfs mount point for other servers
-
+```
 
 Templates
 ---------
@@ -135,10 +135,11 @@ community.general collection
 
 Install it using:
 
-ansible-galaxy collection install community.general
+`` ansible-galaxy collection install community.general ``
 
 Example Playbook
 ----------------
+```
 - name: Project Play
   hosts:
     - k8snodes
@@ -157,7 +158,7 @@ Example Playbook
         debug:
           msg: "Cluster Implementation is Done!"
         when: inventory_hostname == 'mymaster' in groups.k8snodes
-
+```
 
 - It is adviced to use this playbook to run your role independantly.
 
