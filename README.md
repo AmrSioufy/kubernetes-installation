@@ -47,7 +47,7 @@ inventories/group_vars
 
 Directory Hierarchy:
 ####################
-
+`
 inventories/
 └── staging
     ├── group_vars
@@ -61,7 +61,7 @@ inventories/
         ├── mymaster.yaml
         ├── mynfs.yaml
         └── myworker.yaml
-
+`
 -------------------------------------
 
 hosts:
