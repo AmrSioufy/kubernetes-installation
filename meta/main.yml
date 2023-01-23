@@ -1,8 +1,8 @@
 galaxy_info:
   author: Amr Sioufy
-  description: Initiate kubernetes cluster 
+  description: Install Kubernetes Cluster 
   company: Linux-Plus Infromation Systems
-  issue_tracker_url: https://github.com/AmrSioufy/Kubernetes-init/issues
+  issue_tracker_url: https://github.com/AmrSioufy/kubernetes-installation/issues
   license: "license (BSD, MIT)"
   min_ansible_version: 2.9
   platforms:

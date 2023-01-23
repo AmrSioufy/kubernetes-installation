@@ -2,7 +2,7 @@ The design of this role may not be following the best practice standards for a r
 
 Role Name and Description 
 =========================
-Role Name: Kubernetes-init
+Role Name: kubernetes-installation
 
 This Role ensures that every managed host is configured for the following requirements:
 
@@ -136,7 +136,7 @@ Example Playbook
     - infrastructure
 
   roles:
-    - Kubernetes-init
+    - kubernetes-installation
 
   pre_tasks:
     - name: Ping all hosts now
