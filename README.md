@@ -96,9 +96,10 @@ host_vars/:
 - Each file contains the following variable for dynamic ip changing purposes
 
 (EXAMPLE) Content of host_vars/mymaster.yaml
+```
 -->
    ansible_host: 192.168.9.50
-
+```
 -------------------------------------
 Other variables are defined in the vars/main.yaml
 
