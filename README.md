@@ -122,6 +122,7 @@ Templates
 ---------
 
 staging_hosts.j2 = populates list of hosts in /etc/hosts of all nodes
+
 haproxy.j2 = configuration file of the haproxy
 
 
@@ -179,4 +180,5 @@ Author Information
 Written By:
 
 Amr Sioufy 
+
 Systems Engineer @ Linux-Plus Information Systems
