@@ -66,6 +66,7 @@ inventories/
         └── myworker.yaml
 ```
 -------------------------------------
+
 hosts:
 #######
 
@@ -85,11 +86,15 @@ myhaproxy
 -------------------------------------
 
 group_vars/:
+
 ###########
+
 - There are no variables defined yet in the group_vars
 
 -------------------------------------
+
 host_vars/:
+
 ##########
 
 - Each host has his own variable file
