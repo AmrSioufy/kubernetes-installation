@@ -66,10 +66,11 @@ inventories/
         └── myworker.yaml
 ```
 -------------------------------------
-You can add more hosts to the below inventory file as it suits your needs.
-
 hosts:
 #######
+
+You can add more hosts to the below inventory file as it suits your needs.
+```
 [k8snodes]
 mymaster
 myworker
@@ -80,7 +81,7 @@ myworker
 [infrastructure]
 mynfs
 myhaproxy
-
+```
 -------------------------------------
 
 group_vars/:
