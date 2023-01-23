@@ -17,6 +17,8 @@ This Role ensures that every managed host is configured for the following requir
 9. Install NFS-Server on a dedicated host
 10. Initiate Master-node
 
+The role can target multiple master and worker nodes, In the below inventory you will only find 1 master and 1 worker which you can increase depending on your need.
+
 Requirements
 ------------
 ***********************************************************************************************************
@@ -47,6 +49,7 @@ inventories/group_vars
 
 Directory Hierarchy:
 ####################
+
 ```
 inventories/
 └── staging
@@ -63,6 +66,7 @@ inventories/
         └── myworker.yaml
 ```
 -------------------------------------
+You can add more hosts to the below inventory file as it suits your needs.
 
 hosts:
 #######
